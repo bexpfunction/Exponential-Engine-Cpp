@@ -1,7 +1,5 @@
 #include "Shader.h"
 
-
-
 Shader::Shader(const GLchar *pVertexShaderPath, const GLchar *pFragmentShaderPath)
 {
 	//Get the source codes from file path
@@ -36,7 +34,7 @@ Shader::Shader(const GLchar *pVertexShaderPath, const GLchar *pFragmentShaderPat
 	catch (std::ifstream::failure e) {
 		std::cout << "ERROR!!! SHADER FILE COULDN'T BE READ SUCCESFULLY!!! : " << e.code() << std::endl;
 	}
-	//Get the byte arrays for shader codes
+	//Get the char arrays for shader codes
 	const char *vShaderCode = vertexCode.c_str();
 	const char *fShaderCode = fragmentCode.c_str();
 
