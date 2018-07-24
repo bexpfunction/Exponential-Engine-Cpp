@@ -14,13 +14,13 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//Create the window
-	GLFWwindow *window = glfwCreateWindow(800, 600, "Exponential Engine", NULL, NULL);
-	if (window == NULL) {
+	GLFWwindow *pWindow = glfwCreateWindow(800, 600, "Exponential Engine", NULL, NULL);
+	if (pWindow == NULL) {
 		std::cout << "Error!!! Failed to create GL window!" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(pWindow);
 
 	//Initialize GLAD for OpenGL pointers to call OpenGL functions
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -33,7 +33,7 @@ int main() {
 	glViewport(0, 0, 800, 600);
 
 	//Set framebuffer resize callback method
-	glfwSetFramebufferSizeCallback(window, GL_Framebuffer_Resize_Callback);
+	glfwSetFramebufferSizeCallback(pWindow, GL_Framebuffer_Resize_Callback);
 
 	//Set wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -97,9 +97,9 @@ int main() {
 	float angle = 0.0f;
 	
 	//Main loop
-	while (!glfwWindowShouldClose(window)) {
+	while (!glfwWindowShouldClose(pWindow)) {
 		//Process input
-		ProcessInput(window);
+		ProcessInput(pWindow);
 
 		//Render the screen
 		//clear
@@ -112,7 +112,7 @@ int main() {
 		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
 
 		//Swap buffers and poll events(GLFW)
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(pWindow);
 		glfwPollEvents();
 
 		angle += 0.1f;

@@ -8,7 +8,7 @@ public:
 	unsigned int ID;
 
 	//Constructor
-	Shader(const GLchar *vertexShaderPath, const GLchar *fragmentShaderPath);
+	Shader(const GLchar *pVertexShaderPath, const GLchar *pFragmentShaderPath);
 	//Activate shader
 	void use();
 	//set uniforms
