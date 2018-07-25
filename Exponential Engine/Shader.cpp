@@ -1,5 +1,10 @@
 #include "Shader.h"
 
+Shader::Shader()
+{
+
+}
+
 Shader::Shader(const GLchar *pVertexShaderPath, const GLchar *pFragmentShaderPath)
 {
 	//Get the source codes from file path
@@ -95,6 +100,11 @@ void Shader::use()
 	glUseProgram(ID);
 }
 
+void Shader::stopUse()
+{
+	glUseProgram(0);
+}
+
 void Shader::setBool(const std::string & name, bool value) const
 {
 	glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
@@ -109,6 +119,16 @@ void Shader::setFloat(const std::string & name, float value) const
 {
 	//std::cout << "Location of " << name << " is " << glGetUniformLocation(ID, name.c_str())<<std::endl;
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+
+void Shader::setVec2f(const std::string & name, glm::vec2 value) const
+{
+	glUniform2f(glGetUniformLocation(ID, name.c_str()), value.x, value.y);
+}
+
+void Shader::setVec3f(const std::string & name, glm::vec3 value) const
+{
+	glUniform3f(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z);
 }
 
 

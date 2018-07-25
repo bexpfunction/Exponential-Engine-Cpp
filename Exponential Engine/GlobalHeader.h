@@ -10,3 +10,4 @@
 
 //Precompiled headers
 #include "Shader.h"
+#include "Sprite.h"

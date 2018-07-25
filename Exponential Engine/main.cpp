@@ -14,7 +14,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//Create the window
-	GLFWwindow *pWindow = glfwCreateWindow(800, 600, "Exponential Engine", NULL, NULL);
+	GLFWwindow *pWindow = glfwCreateWindow(1280, 720, "Exponential Engine", NULL, NULL);
 	if (pWindow == NULL) {
 		std::cout << "Error!!! Failed to create GL window!" << std::endl;
 		glfwTerminate();
@@ -30,7 +30,7 @@ int main() {
 
 
 	//Create the glViewport
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, 1280, 720);
 
 	//Set framebuffer resize callback method
 	glfwSetFramebufferSizeCallback(pWindow, GL_Framebuffer_Resize_Callback);
@@ -43,53 +43,9 @@ int main() {
 
 	////////////////////////////////TEST SCENE STUFF///////////////////////////////////////////////
 	//Test shader
-	Shader testShader("../Shaders/FlatColorVertex.glsl", "../Shaders/FlatColorFragment.glsl");
-
-	//Test triangle vertices
-	float vertices[] = {
-		0.5f, 0.5f, 0.0f,		//Top right				- 0
-		0.5f, -0.5f, 0.0f,		//Bottom right			- 1
-		-0.5f, -0.5f, 0.0f,		//Bottom left			- 2
-		-0.5f, 0.5f, 0.0f,		//Top left				- 3
-		//Additional test
-		-1.0f, -0.5f, 0.0f,		//Bottom most left		- 4
-		1.0f, -0.5f, 0.0f		//Bottom most right		- 5
-	};
-
-	int indices[] = {
-		0, 1, 2,
-		3, 0, 2,
-		3, 2, 4,
-		0, 1, 5
-	};
-	
-	//VBO and VAO
-	unsigned int VAO, VBO, EBO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-
-	//Bind vertex arrays
-	glBindVertexArray(VAO);
-
-	//Then bind buffers to vertex arrays
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//Then bind data to buffers
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	//Then bind element array
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	//Set vertex attribute pointers offsets
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	//Unbind vbo
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
-	//Unbind vao
-	glBindVertexArray(0);
+	glm::vec2 testSpPos(0.0f, 0.0f);
+	glm::vec2 testSpSiz(0.1f, 0.1f);
+	Sprite testSprite(testSpPos, testSpSiz);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,10 +62,9 @@ int main() {
 		glClearColor(0.1f, 0.25f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//draw
-		testShader.use();
-		testShader.setFloat("offset", yOffset);
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+		testSpPos.x = testSpPos.y = yOffset;
+		testSprite.SetPosition(testSpPos);
+		testSprite.Draw();
 
 		//Swap buffers and poll events(GLFW)
 		glfwSwapBuffers(pWindow);
@@ -119,11 +74,6 @@ int main() {
 		if (angle > 360.0f) angle = 0.0f;
 		yOffset = sin(angle*3.1415 / 180.0f);
 	}
-
-	//Dealloc all buffers and objects
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
 
 	//Quit
 	glfwTerminate();
