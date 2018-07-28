@@ -7,7 +7,6 @@ Sprite::Sprite(glm::vec2 position, glm::vec2 size)
 	//Set private variables
 	_position = position;
 	_size = size;
-	_shader = new Shader("../Shaders/Sprite/SpriteVertex.glsl", "../Shaders/Sprite/SpriteFragment.glsl");
 
 	//Construct Sprite Quad(anchor at middle center)
 	float vertices[] = {
@@ -70,5 +69,6 @@ Sprite::~Sprite()
 	glDeleteBuffers(1, &_VBO);
 	glDeleteBuffers(1, &_EBO);
 
+	_shader = NULL;
 	delete _shader;
 }

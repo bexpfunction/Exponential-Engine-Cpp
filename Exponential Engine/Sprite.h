@@ -1,6 +1,9 @@
 #pragma once
 #include "GlobalHeader.h"
 
+//Forward declerations
+class Shader;
+
 class Sprite
 {
 public:
@@ -10,6 +13,7 @@ public:
 	glm::vec2 GetSize() { return _size; }
 	void SetPosition(glm::vec2 position) { _position = position; }
 	void SetSize(glm::vec2 size) { _size = size; }
+	void SetShader(Shader *shader) { _shader = shader; }
 	unsigned int GetID() { return _id; }
 	void Draw();
 

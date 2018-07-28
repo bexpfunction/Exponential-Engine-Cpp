@@ -43,9 +43,11 @@ int main() {
 
 	////////////////////////////////TEST SCENE STUFF///////////////////////////////////////////////
 	//Test shader
+	Shader testShader("../Shaders/Sprite/SpriteVertex.glsl", "../Shaders/Sprite/SpriteFragment.glsl");
 	glm::vec2 testSpPos(0.0f, 0.0f);
 	glm::vec2 testSpSiz(0.1f, 0.1f);
 	Sprite testSprite(testSpPos, testSpSiz);
+	testSprite.SetShader(&testShader);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -72,7 +74,7 @@ int main() {
 
 		angle += 0.1f;
 		if (angle > 360.0f) angle = 0.0f;
-		yOffset = sin(angle*3.1415 / 180.0f);
+		yOffset = sin(angle*3.1415f / 180.0f);
 	}
 
 	//Quit
