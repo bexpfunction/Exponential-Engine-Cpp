@@ -53,8 +53,8 @@ Sprite::Sprite(glm::vec2 position, glm::vec2 size)
 
 void Sprite::Draw()
 {
-	_shader->setVec2f("worldPosition", _position);
 	_shader->use();
+	_shader->setVec2f("worldPosition", _position);
 	glBindVertexArray(_VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

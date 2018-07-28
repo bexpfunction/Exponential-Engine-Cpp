@@ -51,7 +51,7 @@ int main() {
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
-	float yOffset = 0.0f;
+	float yOffset = 0.0f, xOffset = 0.0f;
 	float angle = 0.0f;
 	
 	//Main loop
@@ -64,7 +64,8 @@ int main() {
 		glClearColor(0.1f, 0.25f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//draw
-		testSpPos.x = testSpPos.y = yOffset;
+		testSpPos.x = xOffset / 2.0f;
+		testSpPos.y = yOffset / 2.0f;
 		testSprite.SetPosition(testSpPos);
 		testSprite.Draw();
 
@@ -74,6 +75,7 @@ int main() {
 
 		angle += 0.1f;
 		if (angle > 360.0f) angle = 0.0f;
+		xOffset = cos(angle*3.1415f / 180.0f);
 		yOffset = sin(angle*3.1415f / 180.0f);
 	}
 

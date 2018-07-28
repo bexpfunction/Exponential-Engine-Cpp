@@ -33,8 +33,8 @@ Shader::Shader(const GLchar *pVertexShaderPath, const GLchar *pFragmentShaderPat
 		vertexCode = vShaderStream.str();
 		fragmentCode = fShaderStream.str();
 		//Print the codes for debug
-		std::cout << "Vertex shader code: " << std::endl << vertexCode << std::endl;
-		std::cout << "Fragment shader code: " << std::endl << fragmentCode << std::endl;
+		//std::cout << "Vertex shader code: " << std::endl << vertexCode << std::endl;
+		//std::cout << "Fragment shader code: " << std::endl << fragmentCode << std::endl;
 	}
 	catch (std::ifstream::failure e) {
 		std::cout << "ERROR!!! SHADER FILE COULDN'T BE READ SUCCESFULLY!!! : " << e.code() << std::endl;
