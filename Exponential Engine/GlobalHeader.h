@@ -9,5 +9,6 @@
 #include <glm/glm.hpp>
 
 //Precompiled headers
+#include "Camera.h"
 #include "Shader.h"
 #include "Sprite.h"
