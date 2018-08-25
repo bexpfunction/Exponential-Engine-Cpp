@@ -38,12 +38,16 @@ int main() {
 	//Set wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	//Set vsync
+	glfwSwapInterval(0);
+
 	std::cout << "Initialization complete!!!" << std::endl;
 	//End initialization
 
 	////////////////////////////////TEST SCENE STUFF///////////////////////////////////////////////
 	//Test shader
 	Shader testShader("../Shaders/Sprite/SpriteVertex.glsl", "../Shaders/Sprite/SpriteFragment.glsl");
+	//Test Sprite
 	glm::vec2 testSpPos(0.0f, 0.0f);
 	glm::vec2 testSpSiz(0.1f, 0.1f);
 	Sprite testSprite(testSpPos, testSpSiz);
@@ -54,8 +58,12 @@ int main() {
 	float yOffset = 0.0f, xOffset = 0.0f;
 	float angle = 0.0f;
 	
+	//Time measurement
+	std::chrono::high_resolution_clock::time_point t1;
+
 	//Main loop
 	while (!glfwWindowShouldClose(pWindow)) {
+		t1 = std::chrono::high_resolution_clock::now();
 		//Process input
 		ProcessInput(pWindow);
 
@@ -64,8 +72,8 @@ int main() {
 		glClearColor(0.1f, 0.25f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//draw
-		testSpPos.x = xOffset / 2.0f;
-		testSpPos.y = yOffset / 2.0f;
+		testSpPos.x = xOffset * 0.5f;
+		testSpPos.y = yOffset * 0.5f;
 		testSprite.SetPosition(testSpPos);
 		testSprite.Draw();
 
@@ -73,10 +81,12 @@ int main() {
 		glfwSwapBuffers(pWindow);
 		glfwPollEvents();
 
-		angle += 0.1f;
+		angle += 1.0f;
 		if (angle > 360.0f) angle = 0.0f;
-		xOffset = cos(angle*3.1415f / 180.0f);
-		yOffset = sin(angle*3.1415f / 180.0f);
+		xOffset = cos(angle*0.0174527f);
+		yOffset = sin(angle*0.0174527f);
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - t1).count();
+		std::cout << "Time elapsed: " << duration << " MicroSecs " << std::endl;
 	}
 
 	//Quit
